@@ -1,0 +1,50 @@
+{
+  "name": "Minecraft Server Codespace (Auto-configured by Doce-Bt)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "postStartCommand": "bash ${containerWorkspaceFolder}/startup.sh",
+  "forwardPorts": [
+    25565,
+    24454,
+    8080
+  ],
+  "portsAttributes": {
+    "25565": {
+      "label": "Minecraft Server",
+      "onAutoForward": "notify"
+    },
+    "24454": {
+      "label": "SimpleVoiceChat (UDP)",
+      "onAutoForward": "silent"
+    },
+    "8080": {
+      "label": "Web Server + Cloudflare Tunnel",
+      "onAutoForward": "silent"
+    }
+  },
+  "containerEnv": {
+    "DISCORD_USER_ID": "793218613783691294",
+    "BOT_WEBHOOK_URL": "https://doce-bt.onrender.com/webhook/tunnel_notify",
+    "MINECRAFT_PORT": "25565",
+    "VOICECHAT_PORT": "24454",
+    "AUTO_START": "true"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "postCreateCommand": "pip install -r requirements.txt || true"
+}
